@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather App</title>
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <h2>
+          <i class="fas fa-map-marker-alt"></i><span id="location"></span>
+        </h2>
+
+        <h6 id="weather" style="font-size: 20px"></h6>
+        <h4><span id="temp"></span> <sup>O</sup>C</h4>
+        <img src="" id="icon" />
+        <button onclick="windows.location.reload()" class="refresh">
+          <i class="fas fa-sync-alt"></i>
+        </button>
+      </div>
+    </div>
+  </body>
+  <script
+    src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+    crossorigin="anonymous"
+  ></script>
+
+  <script>
+    link =
+      "http://api.openweathermap.org/data/2.5/weather?q=delhi&appid=c0cd9f0f4414b2f88606963e78fa0744";
+
+    var request = new XMLHttpRequest();
+    request.open("GET", link, true);
+    request.onload = function () {
+      var obj = JSON.parse(this.response);
+      console.log(obj);
+
+      document.getElementById("location").innerHTML = obj.name;
+      document.getElementById("weather").innerHTML = obj.weather[0].description;
+      document.getElementById("temp").innerHTML = Math.round(
+        obj.main.temp - 273.15
+      );
+      document.getElementById("icon").src =
+        "https://openweathermap.org/img/w/" + obj.weather[0].icon + ".png";
+    };
+    request.send();
+  </script>
+</html>
